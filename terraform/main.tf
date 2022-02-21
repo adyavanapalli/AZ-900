@@ -93,9 +93,9 @@ resource "azurerm_linux_virtual_machine" "virtual_machine" {
   resource_group_name = azurerm_resource_group.resource_group.name
   size                = "Standard_B1ls"
   source_image_reference {
-    offer     = "UbuntuServer"
+    offer     = "0001-com-ubuntu-minimal-impish-daily"
     publisher = "Canonical"
-    sku       = "19_10-daily-gen2"
+    sku       = "minimal-21_10-daily-gen2"
     version   = "latest"
   }
 }
