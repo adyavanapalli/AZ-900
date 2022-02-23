@@ -8,10 +8,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  terraform:
+  terraform-vm:
     defaults:
       run:
-        working-directory: "terraform"
+        working-directory: "terraform/vm"
 
     runs-on: ubuntu-latest
     env:
