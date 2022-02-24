@@ -63,6 +63,13 @@ resource "azurerm_virtual_network" "virtual_network_2" {
   resource_group_name = azurerm_resource_group.resource_group.name
 }
 
+resource "azurerm_virtual_network_peering" "virtual_network_peering_1" {
+  name                      = random_pet.virtual_network_peering_1_name.id
+  virtual_network_name      = azurerm_virtual_network.virtual_network_1.name
+  remote_virtual_network_id = azurerm_virtual_network.virtual_network_2.id
+  resource_group_name       = azurerm_resource_group.resource_group.name
+}
+
 resource "azurerm_virtual_network_peering" "virtual_network_peering_2" {
   name                      = random_pet.virtual_network_peering_2_name.id
   virtual_network_name      = azurerm_virtual_network.virtual_network_2.name
