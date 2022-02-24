@@ -1,7 +1,7 @@
 terraform {
   backend "azurerm" {
     container_name       = "terraform"
-    key                  = "peering.default.tfstate"
+    key                  = "vnet-peering.default.tfstate"
     resource_group_name  = "StorageRG"
     storage_account_name = "u1yssvcgp2yddir9pu9v6o81"
   }
