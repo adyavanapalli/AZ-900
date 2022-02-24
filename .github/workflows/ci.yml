@@ -8,10 +8,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  terraform-peering:
+  terraform-vnet-peering:
     defaults:
       run:
-        working-directory: "terraform/peering"
+        working-directory: "terraform/vnet-peering"
 
     runs-on: ubuntu-latest
     env:
