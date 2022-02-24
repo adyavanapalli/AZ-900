@@ -9,10 +9,6 @@ on:
 
 jobs:
   changes:
-    defaults:
-      run:
-        working-directory: "terraform"
-
     runs-on: ubuntu-latest
     outputs:
       db: ${{ steps.filter.outputs.db }}
@@ -26,11 +22,11 @@ jobs:
         with:
           filters: |
             db:
-              - 'db/**'
+              - 'terraform/db/**'
             vm:
-              - 'vm/**'
+              - 'terraform/vm/**'
             vnet-peering:
-              - 'vnet-peering/**'
+              - 'terraform/vnet-peering/**'
 
   terraform-db:
     needs: changes
