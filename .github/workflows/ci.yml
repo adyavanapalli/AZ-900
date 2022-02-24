@@ -8,7 +8,32 @@ on:
   workflow_dispatch:
 
 jobs:
+  changes:
+    defaults:
+      run:
+        working-directory: "terraform"
+
+    runs-on: ubuntu-latest
+    outputs:
+      db: ${{ steps.filter.outputs.db }}
+      vm: ${{ steps.filter.outputs.vm }}
+      vnet-peering: ${{ steps.filter.outputs.vnet-peering }}
+
+    steps:
+      - name: Paths Filter
+        id: filter
+        with:
+          filters: |
+            db:
+              - 'db/**'
+            vm:
+              - 'vm/**'
+            vnet-peering:
+              - 'vnet-peering/**'
+
   terraform-db:
+    needs: changes
+    if: ${{ needs.changes.outputs.db == 'true' }}
     defaults:
       run:
         working-directory: "terraform/db"
@@ -39,10 +64,12 @@ jobs:
       - name: Terraform Apply
         run: terraform apply -auto-approve "plan"
 
-  terraform-vnet-peering:
+  terraform-vm:
+    needs: changes
+    if: ${{ needs.changes.outputs.vm == 'true' }}
     defaults:
       run:
-        working-directory: "terraform/vnet-peering"
+        working-directory: "terraform/vm"
 
     runs-on: ubuntu-latest
     env:
@@ -70,10 +97,12 @@ jobs:
       - name: Terraform Apply
         run: terraform apply -auto-approve "plan"
 
-  terraform-vm:
+  terraform-vnet-peering:
+    needs: changes
+    if: ${{ needs.changes.outputs.vnet-peering == 'true' }}
     defaults:
       run:
-        working-directory: "terraform/vm"
+        working-directory: "terraform/vnet-peering"
 
     runs-on: ubuntu-latest
     env:
