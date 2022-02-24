@@ -16,6 +16,9 @@ jobs:
       vnet-peering: ${{ steps.filter.outputs.vnet-peering }}
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
       - name: Paths Filter
         uses: dorny/paths-filter@v2
         id: filter
