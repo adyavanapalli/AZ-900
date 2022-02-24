@@ -8,10 +8,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  terraform-vm:
+  terraform-peering:
     defaults:
       run:
-        working-directory: "terraform/vm"
+        working-directory: "terraform/peering"
 
     runs-on: ubuntu-latest
     env:
@@ -39,10 +39,10 @@ jobs:
       - name: Terraform Apply
         run: terraform apply -auto-approve "plan"
 
-  terraform-peering:
+  terraform-vm:
     defaults:
       run:
-        working-directory: "terraform/peering"
+        working-directory: "terraform/vm"
 
     runs-on: ubuntu-latest
     env:
