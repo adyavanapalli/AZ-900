@@ -21,6 +21,7 @@ provider "azurerm" {
 
 resource "random_pet" "resource_group_name" {}
 resource "random_pet" "postgresql_database_name" {}
+resource "random_pet" "postgresql_firewall_rule_name" {}
 
 resource "random_string" "postgresql_server_name" {
   length  = 63
@@ -34,7 +35,7 @@ resource "random_password" "postgresql_server_password" {
   length  = 128
   lower   = true
   number  = true
-  special = true
+  special = false
   upper   = true
 }
 
@@ -54,9 +55,17 @@ resource "azurerm_postgresql_server" "postgresql_server" {
   version                      = "11"
 }
 
+resource "azurerm_postgresql_firewall_rule" "firewall_rule" {
+  end_ip_address      = "255.255.255.255"
+  name                = random_pet.postgresql_firewall_rule_name.id
+  resource_group_name = azurerm_resource_group.resource_group.name
+  server_name         = azurerm_postgresql_server.postgresql_server.name
+  start_ip_address    = "0.0.0.0"
+}
+
 resource "azurerm_postgresql_database" "postgresql_database" {
   charset             = "UTF8"
-  collation           = "default"
+  collation           = "C"
   name                = random_pet.postgresql_database_name.id
   resource_group_name = azurerm_resource_group.resource_group.name
   server_name         = azurerm_postgresql_server.postgresql_server.name
