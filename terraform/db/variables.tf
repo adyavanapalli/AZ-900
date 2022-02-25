@@ -1,9 +1,3 @@
-# variable "public_key" {
-#   description = "The public key which should be used for authentication, which needs to be at least 2048-bit and in ssh-rsa format."
-#   sensitive   = true
-#   type        = string
-# }
-
 variable "region" {
   default     = "East US"
   description = "The Azure Region where the Resource Group should exist."
