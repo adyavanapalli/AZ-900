@@ -19,9 +19,20 @@ provider "azurerm" {
   features {}
 }
 
-resource "random_pet" "resource_group_name" {}
+
+resource "random_pet" "mssql_database_name" {}
+resource "random_pet" "mssql_firewall_rule_name" {}
 resource "random_pet" "postgresql_database_name" {}
 resource "random_pet" "postgresql_firewall_rule_name" {}
+resource "random_pet" "resource_group_name" {}
+
+resource "random_string" "mssql_server_name" {
+  length  = 63
+  lower   = true
+  number  = true
+  special = false
+  upper   = false
+}
 
 resource "random_string" "postgresql_server_name" {
   length  = 63
@@ -29,6 +40,14 @@ resource "random_string" "postgresql_server_name" {
   number  = true
   special = false
   upper   = false
+}
+
+resource "random_password" "mssql_server_password" {
+  length  = 128
+  lower   = true
+  number  = true
+  special = false
+  upper   = true
 }
 
 resource "random_password" "postgresql_server_password" {
@@ -40,8 +59,32 @@ resource "random_password" "postgresql_server_password" {
 }
 
 resource "azurerm_resource_group" "resource_group" {
-  name     = random_pet.resource_group_name.id
   location = var.region
+  name     = random_pet.resource_group_name.id
+}
+
+resource "azurerm_mssql_server" "mssql_server" {
+  administrator_login          = var.username
+  administrator_login_password = random_password.mssql_server_password.result
+  location                     = azurerm_resource_group.resource_group.location
+  name                         = random_string.mssql_server_name.id
+  resource_group_name          = azurerm_resource_group.resource_group.name
+  version                      = "12.0"
+}
+
+resource "azurerm_mssql_firewall_rule" "mssql_firewall_rule" {
+  end_ip_address   = "255.255.255.255"
+  name             = random_pet.mssql_firewall_rule_name.id
+  server_id        = azurerm_mssql_server.mssql_server.id
+  start_ip_address = "0.0.0.0"
+}
+
+resource "azurerm_mssql_database" "mssql_database" {
+  max_size_gb          = "1"
+  name                 = random_pet.mssql_database_name.id
+  server_id            = azurerm_mssql_server.mssql_server.id
+  sku_name             = "Basic"
+  storage_account_type = "LRS"
 }
 
 resource "azurerm_postgresql_server" "postgresql_server" {
