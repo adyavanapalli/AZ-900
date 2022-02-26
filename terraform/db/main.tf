@@ -22,11 +22,21 @@ provider "azurerm" {
 
 resource "random_pet" "mssql_database_name" {}
 resource "random_pet" "mssql_firewall_rule_name" {}
+resource "random_pet" "mysql_database_name" {}
+resource "random_pet" "mysql_firewall_rule_name" {}
 resource "random_pet" "postgresql_database_name" {}
 resource "random_pet" "postgresql_firewall_rule_name" {}
 resource "random_pet" "resource_group_name" {}
 
 resource "random_string" "mssql_server_name" {
+  length  = 63
+  lower   = true
+  number  = true
+  special = false
+  upper   = false
+}
+
+resource "random_string" "mysql_server_name" {
   length  = 63
   lower   = true
   number  = true
@@ -43,6 +53,14 @@ resource "random_string" "postgresql_server_name" {
 }
 
 resource "random_password" "mssql_server_password" {
+  length  = 128
+  lower   = true
+  number  = true
+  special = false
+  upper   = true
+}
+
+resource "random_password" "mysql_server_password" {
   length  = 128
   lower   = true
   number  = true
@@ -85,6 +103,34 @@ resource "azurerm_mssql_database" "mssql_database" {
   server_id            = azurerm_mssql_server.mssql_server.id
   sku_name             = "Basic"
   storage_account_type = "LRS"
+}
+
+resource "azurerm_mysql_server" "mysql_server" {
+  administrator_login          = var.username
+  administrator_login_password = random_password.mysql_server_password.result
+  location                     = azurerm_resource_group.resource_group.location
+  name                         = random_string.mysql_server_name.id
+  resource_group_name          = azurerm_resource_group.resource_group.name
+  sku_name                     = "B_Gen5_1"
+  ssl_enforcement_enabled      = true
+  storage_mb                   = "5120"
+  version                      = "8.0"
+}
+
+resource "azurerm_mysql_firewall_rule" "mysql_firewall_rule" {
+  end_ip_address      = "255.255.255.255"
+  name                = random_pet.mysql_firewall_rule_name.id
+  resource_group_name = azurerm_resource_group.resource_group.name
+  server_name         = azurerm_mysql_server.mysql_server.name
+  start_ip_address    = "0.0.0.0"
+}
+
+resource "azurerm_mysql_database" "mysql_database" {
+  charset             = "utf8mb4"
+  collation           = "utf8mb4_general_ci"
+  name                = random_pet.mysql_database_name.id
+  resource_group_name = azurerm_resource_group.resource_group.name
+  server_name         = azurerm_mysql_server.mysql_server.name
 }
 
 resource "azurerm_postgresql_server" "postgresql_server" {
