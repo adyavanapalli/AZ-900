@@ -174,4 +174,3 @@ resource "azurerm_linux_virtual_machine" "virtual_machine_2" {
     version   = "latest"
   }
 }
-
