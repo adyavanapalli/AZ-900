@@ -99,3 +99,4 @@ resource "azurerm_linux_virtual_machine" "virtual_machine" {
     version   = "latest"
   }
 }
+
