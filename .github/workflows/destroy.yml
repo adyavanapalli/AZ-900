@@ -17,9 +17,9 @@ jobs:
     strategy:
       matrix:
         cwd:
-        - 'terraform/db'
-        - 'terraform/vm'
-        - 'terraform/vnet-peering'
+        - 'terraform/database'
+        - 'terraform/virtual-machine'
+        - 'terraform/virtual-network-peering'
 
     defaults:
       run:

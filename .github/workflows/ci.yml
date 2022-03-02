@@ -21,14 +21,14 @@ jobs:
         id: filter
         with:
           filters: |
-            db:
-              - 'terraform/db/**'
+            database:
+              - 'terraform/database/**'
 
-            vm:
-              - 'terraform/vm/**'
+            virtual-machine:
+              - 'terraform/virtual-machine/**'
 
-            vnet-peering:
-              - 'terraform/vnet-peering/**'
+            virtual-network-peering:
+              - 'terraform/virtual-network-peering/**'
 
   terraform-apply:
     needs: changes
