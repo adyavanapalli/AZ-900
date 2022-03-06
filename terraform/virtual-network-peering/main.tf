@@ -2,8 +2,8 @@ terraform {
   backend "azurerm" {
     container_name       = "tfstate"
     key                  = "virtual-network-peering.tfstate"
-    resource_group_name  = "rg-terraform-eastus"
-    storage_account_name = "stterraformeastus5iolo10"
+    resource_group_name  = "rg-starsandmanifolds-eastus"
+    storage_account_name = "ststarsandmanifoldseastu"
   }
   required_providers {
     azurerm = {
