@@ -1,4 +1,4 @@
-name: "Destroy"
+name: "Terraform Destroy"
 
 on:
   schedule:
@@ -17,9 +17,9 @@ jobs:
     strategy:
       matrix:
         cwd:
-        - 'terraform/database'
-        - 'terraform/virtual-machine'
-        - 'terraform/virtual-network-peering'
+          - "terraform/database"
+          - "terraform/virtual-machine"
+          - "terraform/virtual-network-peering"
 
     defaults:
       run:
