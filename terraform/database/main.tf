@@ -1,7 +1,7 @@
 terraform {
   backend "azurerm" {
     container_name       = "tfstate"
-    key                  = "database.tfstate"
+    key                  = "database.TerraformAzureWithGitHubActions.tfstate"
     resource_group_name  = "rg-starsandmanifolds-eastus"
     storage_account_name = "ststarsandmanifoldseastu"
   }

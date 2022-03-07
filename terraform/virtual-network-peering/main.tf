@@ -1,7 +1,7 @@
 terraform {
   backend "azurerm" {
     container_name       = "tfstate"
-    key                  = "virtual-network-peering.tfstate"
+    key                  = "virtual-network-peering.TerraformAzureWithGitHubActions.tfstate"
     resource_group_name  = "rg-starsandmanifolds-eastus"
     storage_account_name = "ststarsandmanifoldseastu"
   }
