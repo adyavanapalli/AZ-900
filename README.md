@@ -1,6 +1,6 @@
 # Terraform Azure with GitHub Actions
 
-[![Terraform Apply](https://github.com/adyavanapalli/TerraformAzureWithGitHubActions/actions/workflows/terraform-apply.yml/badge.svg)](https://github.com/adyavanapalli/TerraformAzureWithGitHubActions/actions/workflows/terraform-apply.yml) [![Terraform Destroy](https://github.com/adyavanapalli/TerraformAzureWithGitHubActions/actions/workflows/terraform-destroy.yml/badge.svg)](https://github.com/adyavanapalli/TerraformAzureWithGitHubActions/actions/workflows/terraform-destroy.yml)
+[![Terraform Apply](https://github.com/adyavanapalli/TerraformAzureWithGitHubActions/actions/workflows/terraform-apply.yml/badge.svg)](https://github.com/adyavanapalli/TerraformAzureWithGitHubActions/actions/workflows/terraform-apply.yml)
 
 A project for experimenting with Terraform on Azure hosted on GitHub. This
 repository serves as the sister repository for
